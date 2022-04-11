@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-md-6 mb-2 pb-2">
                                     <div class="form-outline">
-                                        <input type="text" name = "confirmpassword" value = "${form.confirmPassword}"id="confirmPassword" class="form-control form-control-lg"
+                                        <input type="text" name = "confirmPassword" value = "${form.confirmPassword}"id="confirmPassword" class="form-control form-control-lg"
                                                onkeyup='check();'/>
                                         <label class="form-label" for="confirmPassword">Confirm Password</label>
                                     </div>
