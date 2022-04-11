@@ -1,0 +1,140 @@
+body {
+    background-color: black;
+}
+
+#wild{
+    display: block;
+    position: absolute;
+    height:250px;
+    width: 340px;
+    right: 1px;
+}
+
+#topflag{
+    display: flex;
+    align-items: center;
+}
+#meetstyle{
+    position: relative;
+    display: inline-block;
+    color: black;
+    text-shadow: 0 0 3px white;
+    font-size: 80px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#underline{
+    text-decoration: underline;
+    text-decoration-color: orange;
+}
+
+#sully{
+    margin-top: 400px;
+    font-size: 30px;
+    color: white;
+}
+
+#sullypic{
+    height: 200px;
+    border: solid 2px;
+    border-style: dashed;
+    border-color: orange;
+    border-radius: 60%;
+}
+
+#brett{
+    text-align: right;
+    float: right;
+    margin-top: 70px;
+    font-size: 30px;
+    color: white;
+}
+
+#brettpic{
+    float: right;
+    height: 200px;
+    border: solid 2px;
+    border-style: dashed;
+    border-color: orange;
+    border-radius: 60%;
+}
+
+#bretttext{
+    display: relative;
+    margin-top: 160px;
+}
+#michael{
+    text-align: left;
+    float: left;
+    margin-top: 70px;
+    font-size: 30px;
+    color: white;
+}
+
+#michaelpic{
+    float: left;
+    height: 200px;
+    width: 200px;
+    border: solid 2px;
+    border-style: dashed;
+    border-color: orange;
+    border-radius: 60%;
+}
+
+#michaeltext{
+    display: relative;
+    margin-top: 160px;
+}
+
+#sam{
+    text-align: right;
+    float: right;
+    margin-top: 70px;
+    font-size: 30px;
+    color: white;
+}
+
+#sampic{
+    float: right;
+    height: 200px;
+    border: solid 2px;
+    border-style: dashed;
+    border-color: orange;
+    border-radius: 60%;
+}
+
+#samtext{
+    display: relative;
+    margin-top: 160px;
+}
+
+#tyler{
+    text-align: left;
+    float: left;
+    margin-top: 70px;
+    font-size: 30px;
+    color: white;
+}
+
+#tylerpic{
+    float: left;
+    height: 200px;
+    width: 200px;
+    border: solid 2px;
+    border-style: dashed;
+    border-color: orange;
+    border-radius: 60%;
+}
+
+#tylertext{
+    display: relative;
+    margin-top: 160px;
+}
+
+.dropdown-menu {
+    display: absolute;
+    float: left;
+    background-color: orange;
+
+}
