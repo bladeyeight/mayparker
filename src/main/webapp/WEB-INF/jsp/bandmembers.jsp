@@ -28,8 +28,8 @@
         <li><a class="dropdown-item" href="../html/songs.html">Songs</a></li>
         <li><a class="dropdown-item" href="#">Upcoming Shows</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="../registration">Create Account</a></li>
-        <li><a class="dropdown-item" href="#">Login</a></li>
+        <li><a class="dropdown-item" href="../user/register">Create Account</a></li>
+        <li><a class="dropdown-item" href="../login/login">Login</a></li>
     </ul>
 </div>
 <div id = "sully">
