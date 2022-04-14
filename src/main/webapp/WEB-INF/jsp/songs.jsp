@@ -19,7 +19,7 @@
 </div >
 <!-- Default dropend button -->
 <div class="btn-group dropdown">
-    <button type="button" class="btn btn-warning btn-md dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn btn-info btn-md dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         Menu
     </button>
     <ul class="dropdown-menu">
@@ -32,22 +32,21 @@
         <li><a class="dropdown-item" href="../login/login">Login</a></li>
     </ul>
 </div>
+<a id ="createsong" class = "btn btn-info btn-md" href = "admin/songForm">Create Song</a>
 <table class = "table">
     <tr>
         <th>Name</th>
         <th># of Shows</th>
         <th>Edit</th>
     </tr>
-    <c:forEach items="${songs}" var ="song">
-    <c:forEach items="${sLength}" var ="length">
+    <c:forEach items="${songs}" var ="song" varStatus = "status">
+
         <tr scope ="row">
             <td>${song.name}</td>
+            <td>${sLength[status.index]}</td>
 
-            <td>${length}</td>
-
-            <td><a href = "/user/edit/${song.id}">Edit</a></td>
+            <td><a href = "/admin/edit/${song.id}">Edit</a></td>
         </tr>
-    </c:forEach>
     </c:forEach>
 </table>
 </body>

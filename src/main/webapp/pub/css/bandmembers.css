@@ -26,7 +26,7 @@ body {
 
 #underline{
     text-decoration: underline;
-    text-decoration-color: orange;
+    text-decoration-color: lightskyblue;
 }
 
 #sully{
@@ -39,7 +39,7 @@ body {
     height: 200px;
     border: solid 2px;
     border-style: dashed;
-    border-color: orange;
+    border-color: lightskyblue;
     border-radius: 60%;
 }
 
@@ -56,7 +56,7 @@ body {
     height: 200px;
     border: solid 2px;
     border-style: dashed;
-    border-color: orange;
+    border-color: lightskyblue;
     border-radius: 60%;
 }
 
@@ -78,7 +78,7 @@ body {
     width: 200px;
     border: solid 2px;
     border-style: dashed;
-    border-color: orange;
+    border-color: lightskyblue;
     border-radius: 60%;
 }
 
@@ -100,7 +100,7 @@ body {
     height: 200px;
     border: solid 2px;
     border-style: dashed;
-    border-color: orange;
+    border-color: lightskyblue;
     border-radius: 60%;
 }
 
@@ -123,7 +123,7 @@ body {
     width: 200px;
     border: solid 2px;
     border-style: dashed;
-    border-color: orange;
+    border-color: lightskyblue;
     border-radius: 60%;
 }
 
@@ -135,6 +135,6 @@ body {
 .dropdown-menu {
     display: absolute;
     float: left;
-    background-color: orange;
+    background-color: lightskyblue;
 
 }

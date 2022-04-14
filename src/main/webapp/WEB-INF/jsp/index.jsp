@@ -27,7 +27,7 @@
             <ul class="dropdown-menu">
                 <!-- Dropdown menu links -->
                 <li><a class="dropdown-item" href="../bandmembers">Band Members</a></li>
-                <li><a class="dropdown-item" href="../songs.html">Songs</a></li>
+                <li><a class="dropdown-item" href="../songs">Songs</a></li>
                 <li><a class="dropdown-item" href="#">Upcoming Shows</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="../user/register">Create Account</a></li>

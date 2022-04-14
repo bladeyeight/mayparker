@@ -14,20 +14,24 @@ body {
     font-size: 80px;
     margin-left: auto;
     margin-right: auto;
-    border-bottom: 7px solid orange;
+    border-bottom: 7px solid lightskyblue;
 }
 
 .dropdown-menu {
     float: left;
-    background-color: orange;
+    background-color: lightskyblue;
 }
 
 .table {
     margin-top: 20px;
-    color: orange;
+    color: white;
     text-align: center;
 }
 
 .table > tbody > tr > td {
     border: none;
+}
+
+#createsong{
+    float: right;
 }

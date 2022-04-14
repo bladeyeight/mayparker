@@ -1,7 +1,7 @@
 .gradient-custom {
     background: linear-gradient(to bottom right,
-    rgb(219, 110, 46),
-    rgb(120, 106, 245))
+    rgb(111, 135, 255),
+    rgba(255, 255, 255, 0.67))
 }
 
 .card-body{

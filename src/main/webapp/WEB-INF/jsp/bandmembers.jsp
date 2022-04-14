@@ -19,7 +19,7 @@
 </div >
 <!-- Default dropend button -->
 <div class="btn-group dropdown">
-    <button type="button" class="btn btn-warning btn-md dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn btn-info btn-md dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         Menu
     </button>
     <ul class="dropdown-menu">
