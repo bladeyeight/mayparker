@@ -26,7 +26,7 @@
         <!-- Dropdown menu links -->
         <li><a class="dropdown-item" href="../index">Home</a></li>
         <li><a class="dropdown-item" href="../bandmembers">BandMembers</a></li>
-        <li><a class="dropdown-item" href="#">Upcoming Shows</a></li>
+        <li><a class="dropdown-item" href="../shows">Upcoming Shows</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="../user/register">Create Account</a></li>
         <li><a class="dropdown-item" href="../login/login">Login</a></li>
@@ -37,7 +37,7 @@
     <tr>
         <th>Name</th>
         <th># of Shows</th>
-        <th>Edit</th>
+        <th></th>
     </tr>
     <c:forEach items="${songs}" var ="song" varStatus = "status">
 

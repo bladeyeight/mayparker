@@ -1,10 +1,17 @@
 package com.teksystems.mayparker.controller;
 
 import com.teksystems.mayparker.database.dao.UserDAO;
+import com.teksystems.mayparker.database.dao.UserRoleDAO;
 import com.teksystems.mayparker.database.entity.User;
+import com.teksystems.mayparker.database.entity.UserRole;
 import com.teksystems.mayparker.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,6 +29,13 @@ public class UserController {
 
     @Autowired
     private UserDAO userDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRoleDAO userRoleDao;
+
 
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public ModelAndView create() throws Exception {
@@ -73,12 +87,24 @@ public class UserController {
         }
 
         user.setUsername(form.getUsername());
-        user.setPassword(form.getPassword());
 
+        String password = passwordEncoder.encode(form.getPassword());
+        user.setPassword(password);
 
         userDao.save(user);
 
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId());
+        userRole.setUserRole("USER");
+
+        userRoleDao.save(userRole);
+
+
+
+
         log.info(form.toString());
+
+
 
         // here instaed of showing a view, we want to redirect to the edit page
         // the edit page will then be responsible for loading the user from the
@@ -86,7 +112,7 @@ public class UserController {
         // when you use redirect: as part of the view name it triggers spring to tell the
         // browser to do a redirect to the URL after the :    The big piece here to
         // recognize that redirect: uses an actual URL rather than a view name path.
-        response.setViewName("redirect:/user/edit/" + user.getId());
+        response.setViewName("redirect:/index");
 
         return response;
     }

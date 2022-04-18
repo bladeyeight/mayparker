@@ -3,9 +3,9 @@ package com.teksystems.mayparker.database.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -23,7 +23,7 @@ public class Show {
     @Column(name = "id")
     private Integer id;
 
-    @Temporal (TemporalType.DATE)
+//    @Temporal (TemporalType.DATE)
     @Column(name = "date")
     private Date date;
 

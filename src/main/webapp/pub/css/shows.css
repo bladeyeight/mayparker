@@ -1,0 +1,40 @@
+body {
+    background-color: black;
+}
+
+#topflag{
+    display: flex;
+    align-items: center;
+}
+#meetstyle{
+    position: relative;
+    display: inline-block;
+    color: black;
+    text-shadow: 0 0 3px white;
+    font-size: 80px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dropdown-menu {
+    float: left;
+    background-color: lightskyblue;
+}
+
+#createshow{
+    float: right;
+}
+
+#specwords {
+    color: rgba(218, 165, 32, 0.55);
+}
+
+.table {
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+}
+
+.table > tbody > tr > td {
+    border: none;
+}

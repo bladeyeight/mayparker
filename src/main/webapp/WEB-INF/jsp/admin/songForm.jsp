@@ -23,7 +23,9 @@
     <input type = "hidden" name = "id" value = "${form.id}">
     <span id = "mywords">Song Name:</span> <input type = "text" name = "name" id ="songname" value = "${form.name}">
     <button id = "subbutt" type = "submit">Submit</button>
+    <c:if test="${not empty form.id}">
     <a id ="deletesong" href = "/admin/remove/${form.id}">Delete Song</a>
+    </c:if>
 </form>
 <style>
     body {
