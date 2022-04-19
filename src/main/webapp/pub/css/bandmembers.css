@@ -37,6 +37,7 @@ body {
 
 #sullypic{
     height: 200px;
+  width:235px;
     border: solid 2px;
     border-style: dashed;
     border-color: lightskyblue;

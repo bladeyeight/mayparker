@@ -10,6 +10,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
@@ -75,5 +77,20 @@ public class UserDAOTests {
         }
 
         Assertions.assertThat(tempUser).isNull();
+    }
+
+    @Order(6)
+    @ParameterizedTest
+    @CsvSource({"Patrick Stewart,engage", "William Shatner,engage", "Jonathan Frakes,engage"})
+    void parameterizedTest(String username, String password) {
+
+        User expected = new User();
+        expected.setUsername(username);
+        expected.setPassword(password);
+        userDao.save(expected);
+
+        User actual = userDao.findById(expected.getId());
+
+        Assertions.assertThat(expected).isEqualTo(actual);
     }
 }

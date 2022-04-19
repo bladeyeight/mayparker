@@ -39,11 +39,12 @@
     </ul>
 </div>
 <div id = "sully">
-    <img id = "sullypic" src="https://scontent-iad3-1.xx.fbcdn.net/v/t1.6435-9/56866453_10157401618887932_6977211463689568256_n.jpg?stp=c0.186.1483.1483a_dst-jpg_s851x315&_nc_cat=108&ccb=1-5&_nc_sid=da31f3&_nc_ohc=-Qk4XoQI4rQAX-o7yNg&_nc_ht=scontent-iad3-1.xx&oh=00_AT_qMGi-wrfYKpeltAzpf2HYiTc5duM-n2fvNR4VhT5tkg&oe=626ACE73" alt="">
+    <img id = "sullypic" src="https://i.imgur.com/25HXcPc_d.jpg?maxwidth=520&shape=thumb&fidelity=high" alt="">
     Sully
-    <h3>Born: Ipsum monkim rapt 1998</h3>
+    <h3>Born: Washington DC 1995</h3>
     <h3>Position: Drummer</h3>
-    <h3>Bio:  Dalkit rapt nights toom elfim rightum sollum intend harkl ohm
+    <h3>Bio: Sully is a rock drummer who has been playing since he was 10 years old.  He draws influences from his father
+        ,Chuck Sullivan, Travis Barker, and Stuart Copeland.
     </h3>
 </div>
 <div id = "brett">
@@ -70,7 +71,7 @@
     <div id = "samtext">
         <h3>Born: New York City 1991</h3>
         <h3>Position: Singer</h3>
-        <h3>Bio:  Dalkit rapt nights toom elfim rightum sollum intend harkl ohm</h3>
+        <h3>Bio: Enjoys singing and having a good time.  Usually one leads to the other.</h3>
     </div>
 </div>
 <div id = "tyler">
