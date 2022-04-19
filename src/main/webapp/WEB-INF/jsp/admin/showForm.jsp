@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../pub/css/songForm.css">
     <title>Document</title>
 </head>
@@ -33,30 +36,41 @@
         <label for="InputTime" class="form-label">Show Time:</label>
         <input type="text" class="form-control" id="InputTime" name = "time" value = "${form.time}">
     </div>
+    <sec:authorize access="hasAuthority('ADMIN')">
     <button type="submit" class="btn btn-light">Submit</button>
     <c:if test="${not empty form.id}">
     <a href="/admin/removeShow/${form.id}" class="btn btn-danger" tabindex="-1" role="button">Delete Show</a>
     </c:if>
+    </sec:authorize>
+    <a href="/shows" class="btn btn-light" tabindex="-1" role="button">Back</a>
 </form>
 <c:if test="${not empty form.id}">
     <h3 id = "sethead">Set List</h3>
 <table class = "table">
     <tr>
         <th>Name</th>
+        <sec:authorize access="hasAuthority('ADMIN')">
         <th></th>
+        </sec:authorize>
+
     </tr>
     <c:forEach items="${showSongs}" var ="showSong">
 
         <tr scope ="row">
             <td>${showSong.name}</td>
+            <sec:authorize access="hasAuthority('ADMIN')">
             <td><a class = "removesong" href = "/admin/removeSong/${form.id}/${showSong.id}">Remove Song</a></td>
+            </sec:authorize>
         </tr>
     </c:forEach>
 </table>
+
     <div class="dropdown">
+        <sec:authorize access="hasAuthority('ADMIN')">
         <a class="btn btn-sm btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             Add Song
         </a>
+        </sec:authorize>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <c:forEach items="${songs}" var ="song">
             <li><a class="dropdown-item" href="/admin/addSong/${form.id}/${song.id}">"${song.name}"</a></li>
@@ -64,6 +78,27 @@
         </ul>
     </div>
 </c:if>
+<h3 id = "sethead">Attending</h3>
+<table class = "table">
+    <tr>
+        <th>Name</th>
+<%--        <sec:authorize access="hasAuthority('ADMIN')">--%>
+            <th></th>
+<%--        </sec:authorize>--%>
+    </tr>
+    <c:forEach items="${showUsers}" var ="showUser">
+        <tr scope ="row">
+            <td>${showUser.username}</td>
+            <c:if test = "${currentUser.username == showUser.username}">
+                <td><a class = "removeuser" href = "/admin/removeUser/${form.id}/${showUser.id}">Remove</a></td>
+            </c:if>
+        </tr>
+    </c:forEach>
+</table>
+
+<div class="dropdown">
+    <a href="/admin/addUser/${form.id}/${currentUser.id}" class="btn btn-info btn-sm" tabindex="-1" role="button">Attend Show</a>
+</div>
 </body>
 <style>
     body {
@@ -118,6 +153,10 @@
     }
 
     .removesong {
+        color: red;
+    }
+
+    .removeuser {
         color: red;
     }
 

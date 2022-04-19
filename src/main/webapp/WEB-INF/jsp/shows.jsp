@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,10 +28,17 @@
         <li><a class="dropdown-item" href="../songs">Songs</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="../user/register">Create Account</a></li>
-        <li><a class="dropdown-item" href="../login/login">Login</a></li>
+        <sec:authorize access="!isAuthenticated()">
+            <li><a class="dropdown-item" href="../login/login">Login</a></li>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+            <li><a class="dropdown-item" href="../login/logout">Logout</a></li>
+        </sec:authorize>
     </ul>
 </div>
+<sec:authorize access="hasAuthority('ADMIN')">
 <a id ="createshow" class = "btn btn-info btn-md" href = "admin/showForm">Create Show</a>
+</sec:authorize>
 <table class = "table">
     <tr>
         <th>Location</th>

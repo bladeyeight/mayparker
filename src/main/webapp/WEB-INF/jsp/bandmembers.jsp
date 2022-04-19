@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +30,12 @@
         <li><a class="dropdown-item" href="../shows">Upcoming Shows</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="../user/register">Create Account</a></li>
-        <li><a class="dropdown-item" href="../login/login">Login</a></li>
+        <sec:authorize access="!isAuthenticated()">
+            <li><a class="dropdown-item" href="../login/login">Login</a></li>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+            <li><a class="dropdown-item" href="../login/logout">Logout</a></li>
+        </sec:authorize>
     </ul>
 </div>
 <div id = "sully">

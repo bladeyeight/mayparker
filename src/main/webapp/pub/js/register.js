@@ -24,12 +24,20 @@ var check = function() {
     }
 }
 
-function SubmitForm()
+var submitForm = async function ()
 {
-    document.forms['registerForm'].action='/user/registerSubmit';
-    document.forms['registerForm'].submit();
+    await createUser();
+    await loginUser();
+}
 
-    document.forms['registerForm'].action='/login/loginSubmit';
+function createUser () {
+    document.forms['registerForm'].action='/user/registerSubmit';
+    document.forms['registerForm'].method = 'GET';
     document.forms['registerForm'].submit();
-    return false;
+}
+
+function loginUser () {
+    document.forms['registerForm'].action='/login/loginSubmit';
+    document.forms['registerForm'].method = 'POST';
+    document.forms['registerForm'].submit();
 }
