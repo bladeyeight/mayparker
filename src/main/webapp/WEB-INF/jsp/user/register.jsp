@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,6 +30,9 @@
                                         <input type="text" name ="username" id="username" value = "${form.username}" class="form-control form-control-lg" />
                                         <label class="form-label" for="username">Username</label>
                                     </div>
+                                    <c:forEach items='${bindingResult.getFieldErrors("username")}' var="error">
+                                        <div style="font-size: 30px; color:red;">${error.getDefaultMessage()}</div>
+                                    </c:forEach>
                                 </div>
                             </div>
                             <div class="row">
@@ -37,6 +41,9 @@
                                         <input type="text" name = "password" value = "${form.password}" id="password" class="form-control form-control-lg" />
                                         <label class="form-label" for="password">Password</label>
                                     </div>
+                                    <c:forEach items='${bindingResult.getFieldErrors("password")}' var="error">
+                                        <div style="color:red;">${error.getDefaultMessage()}</div>
+                                    </c:forEach>
                                 </div>
                                 <div class="col-md-6 mb-2 pb-2">
                                     <div class="form-outline">
@@ -44,6 +51,9 @@
                                                onkeyup='check();'/>
                                         <label class="form-label" for="confirmPassword">Confirm Password</label>
                                     </div>
+                                    <c:forEach items='${bindingResult.getFieldErrors("confirmPassword")}' var="error">
+                                        <div style="color:red;">${error.getDefaultMessage()}</div>
+                                    </c:forEach>
                                 </div>
                             </div>
 <%--                            <div class="row">--%>
