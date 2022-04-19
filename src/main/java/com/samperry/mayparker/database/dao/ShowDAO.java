@@ -1,6 +1,7 @@
 package com.samperry.mayparker.database.dao;
 
 import com.samperry.mayparker.database.entity.Show;
+import com.samperry.mayparker.database.entity.Song;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +16,9 @@ public interface ShowDAO extends JpaRepository<Show, Long> {
     public List<Show> findAll();
 
     public Show findById(@Param("id") Integer id);
+
+    public Show findByLocation(@Param("location") String location);
+
 
     public void deleteById(@Param("id") Integer id);
 }

@@ -13,5 +13,7 @@ public interface SongDAO extends JpaRepository<Song, Long> {
 
     public Song findById(@Param("id") Integer id);
 
+    public Song findByName(@Param("name") String name);
+
     public void deleteById(@Param("id") Integer id);
 }
