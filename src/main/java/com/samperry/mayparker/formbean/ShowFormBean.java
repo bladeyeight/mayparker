@@ -15,7 +15,6 @@ public class ShowFormBean {
 
     private Integer id;
 
-    //    @NotBlank(message = "Date is required")
     private Date date;
 
     @NotBlank(message = "Location is required")

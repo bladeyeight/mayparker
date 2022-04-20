@@ -31,7 +31,7 @@ public class UserController {
     @Autowired
     private UserRoleDAO userRoleDao;
 
-//      Pull up the register page
+    //      Pull up the register page
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public ModelAndView create() throws Exception {
 
