@@ -2,11 +2,12 @@ body {
     background-color: black;
 }
 
-#topflag{
+#topflag {
     display: flex;
     align-items: center;
 }
-#meetstyle{
+
+#meetstyle {
     position: relative;
     display: inline-block;
     color: black;
@@ -32,6 +33,6 @@ body {
     border: none;
 }
 
-#createsong{
+#createsong {
     float: right;
 }

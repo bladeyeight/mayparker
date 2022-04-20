@@ -5,6 +5,7 @@ import com.samperry.mayparker.database.entity.Song;
 import com.samperry.mayparker.formbean.SongFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -24,22 +25,24 @@ public class SongsController {
     @Autowired
     private SongDAO songDao;
 
-    @RequestMapping(value = "/songs", method = RequestMethod.GET )
+    //    Serve up the songs page
+    @RequestMapping(value = "/songs", method = RequestMethod.GET)
     public ModelAndView Songs() throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("songs");
 
+//        Bring up the songs from the database
         List<Song> songs = new ArrayList();
-
         songs = songDao.findAll();
         List<Integer> sLength = new ArrayList();
 
-
-        for (int i = 0; i< songs.size(); i++){
+//        Add the number of shows each song is in to the page
+        for (int i = 0; i < songs.size(); i++) {
             int length = songs.get(i).getSShows().size();
             sLength.add(length);
         }
 
+//        Add the objects to the page
         response.addObject("songs", songs);
         response.addObject("sLength", sLength);
 
@@ -47,7 +50,8 @@ public class SongsController {
         return response;
     }
 
-    @RequestMapping(value = "/admin/songForm", method = RequestMethod.GET )
+    //    Display the song edit page
+    @RequestMapping(value = "/admin/songForm", method = RequestMethod.GET)
     public ModelAndView songForm() throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("admin/songForm");
@@ -56,84 +60,68 @@ public class SongsController {
         response.addObject("form", form);
         return response;
     }
+
     @RequestMapping(value = "/admin/songForm/registerSong", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView registerSong(@Valid SongFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
-        log.info(form.toString());
+//
 
-//        int i = 10/0;
-
+//        Keep the page the same if theres errors
         if (bindingResult.hasErrors()) {
-
             for (ObjectError error : bindingResult.getAllErrors()) {
-                log.info( ((FieldError)error).getField() + " " +  error.getDefaultMessage());
+                log.info(((FieldError) error).getField() + " " + error.getDefaultMessage());
             }
-
-            // add the form back to the model so we can fill up the input fields
-            // so the user can correct the input and does not have type it all again
             response.addObject("form", form);
-
-            // add the error list to the model
             response.addObject("bindingResult", bindingResult);
-
-            // because there is 1 or more error we do not want to process the logic below
-            // that will create a new user in the database.   We want to show the register.jsp
             response.setViewName("admin/songForm");
             return response;
         }
-
-        // we first assume that we are going to try to load the user from
-        // the database using the incoming id on the form
+//  Check if the song already exists before creating
         Song song = songDao.findById(form.getId());
-
-        // if the song is not null know it is an edit
         if (song == null) {
-            // now, if the song from the database is null then it means we did not
-            // find this song.   Therefore, it is a create.
             song = new Song();
         }
 
         song.setName(form.getName());
         songDao.save(song);
 
+//        Log out my form
         log.info(form.toString());
 
-        // here instaed of showing a view, we want to redirect to the edit page
-        // the edit page will then be responsible for loading the user from the
-        // database and dynamically creating the page
-        // when you use redirect: as part of the view name it triggers spring to tell the
-        // browser to do a redirect to the URL after the :    The big piece here to
-        // recognize that redirect: uses an actual URL rather than a view name path.
+//          Redirect back to the songs page
         response.setViewName("redirect:/songs");
 
         return response;
     }
-//    @PreAuthorize("hasAuthority('ADMIN')")
-    //@RequestMapping(value = "/user/edit/{userId}", method = RequestMethod.GET)
+
+    //    Only allow Admin to edit song
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/edit/{songId}")
-    //public ModelAndView editUser(@RequestParam("userId") Integer userId) throws Exception {
     public ModelAndView editSong(@PathVariable("songId") Integer songId) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("admin/songForm");
 
+//        Find the song to edit
         Song song = songDao.findById(songId);
 
+//        Use form to edit the song
         SongFormBean form = new SongFormBean();
-
         form.setId(song.getId());
         form.setName(song.getName());
 
-        // in this case we are adding the SongFormBean to the model
+        // adding the SongFormBean to the model
         response.addObject("form", form);
 
         return response;
     }
+
     @Transactional
     @RequestMapping(value = "/admin/remove/{songId}", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView deleteSong(@PathVariable("songId") Integer songId) throws Exception {
         ModelAndView response = new ModelAndView();
 
+//        Just delete the song
 
         songDao.deleteById(songId);
 

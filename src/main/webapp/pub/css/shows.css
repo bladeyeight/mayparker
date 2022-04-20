@@ -2,11 +2,12 @@ body {
     background-color: black;
 }
 
-#topflag{
+#topflag {
     display: flex;
     align-items: center;
 }
-#meetstyle{
+
+#meetstyle {
     position: relative;
     display: inline-block;
     color: black;
@@ -21,7 +22,7 @@ body {
     background-color: lightskyblue;
 }
 
-#createshow{
+#createshow {
     float: right;
 }
 

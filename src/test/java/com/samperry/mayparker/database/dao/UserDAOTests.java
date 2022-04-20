@@ -1,8 +1,5 @@
 package com.samperry.mayparker.database.dao;
 
-import java.util.*;
-
-import com.samperry.mayparker.database.dao.UserDAO;
 import com.samperry.mayparker.database.entity.Show;
 import com.samperry.mayparker.database.entity.User;
 import org.assertj.core.api.Assertions;
@@ -15,6 +12,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 @TestMethodOrder(OrderAnnotation.class)

@@ -1,14 +1,13 @@
 package com.samperry.mayparker.controller;
 
+import com.samperry.mayparker.database.dao.ShowDAO;
 import com.samperry.mayparker.database.dao.SongDAO;
 import com.samperry.mayparker.database.dao.UserDAO;
 import com.samperry.mayparker.database.entity.Show;
 import com.samperry.mayparker.database.entity.Song;
 import com.samperry.mayparker.database.entity.User;
 import com.samperry.mayparker.formbean.ShowFormBean;
-import com.samperry.mayparker.database.dao.ShowDAO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,8 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -40,6 +41,7 @@ public class ShowsController {
     @Autowired
     private UserDAO userDao;
 
+    //Bring up the shows page
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     public ModelAndView Shows() throws Exception {
         ModelAndView response = new ModelAndView();
@@ -48,17 +50,25 @@ public class ShowsController {
         List<Show> shows = new ArrayList();
 
         shows = showDao.findAll();
+
+//        lambda
         shows.sort((o1, o2)
                 -> o1.getDate().compareTo(
                 o2.getDate()));
 
         response.addObject("shows", shows);
 
-
+// stream for future enhancements
+        LocalDate today = LocalDate.of(2022, 1, 1);
+        List<Show> futureShows = shows.stream().filter(w -> w.getDate().toLocalDate().isAfter(today)).collect(Collectors.toList());
+        for (int i = 0; i < futureShows.size(); i++) {
+            log.info(futureShows.get(i) + "");
+        }
         return response;
     }
 
-    @RequestMapping(value = "/admin/showForm", method = RequestMethod.GET )
+    // Brings up the show edit form
+    @RequestMapping(value = "/admin/showForm", method = RequestMethod.GET)
     public ModelAndView showForm() throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("admin/showForm");
@@ -67,18 +77,19 @@ public class ShowsController {
         response.addObject("form", form);
         return response;
     }
+
+    // submitting create for the show
     @RequestMapping(value = "/admin/showForm/registerShow", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView registerShow(@Valid ShowFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
         log.info(form.toString());
 
-
-
+//  makes page stay the same if there are errors
         if (bindingResult.hasErrors()) {
 
             for (ObjectError error : bindingResult.getAllErrors()) {
-                log.info( ((FieldError)error).getField() + " " +  error.getDefaultMessage());
+                log.info(((FieldError) error).getField() + " " + error.getDefaultMessage());
             }
 
             // add the form back to the model so we can fill up the input fields
@@ -94,17 +105,16 @@ public class ShowsController {
             return response;
         }
 
-        // we first assume that we are going to try to load the user from
-        // the database using the incoming id on the form
+//        Load show from database
         Show show = showDao.findById(form.getId());
 
-        // if the song is not null know it is an edit
+//         Edit show
         if (show == null) {
-            // now, if the song from the database is null then it means we did not
-            // find this song.   Therefore, it is a create.
+
             show = new Show();
         }
 
+//        creating the show
         show.setDate(form.getDate());
         show.setLocation(form.getLocation());
         show.setTime(form.getTime());
@@ -112,24 +122,21 @@ public class ShowsController {
 
 //        log.info(form.toString());
 
-        // here instaed of showing a view, we want to redirect to the edit page
-        // the edit page will then be responsible for loading the user from the
-        // database and dynamically creating the page
-        // when you use redirect: as part of the view name it triggers spring to tell the
-        // browser to do a redirect to the URL after the :    The big piece here to
-        // recognize that redirect: uses an actual URL rather than a view name path.
+//  redirect back to shows page
         response.setViewName("redirect:/shows");
 
         return response;
     }
+
     @GetMapping("/admin/editShow/{showId}")
-    //public ModelAndView editUser(@RequestParam("userId") Integer userId) throws Exception {
     public ModelAndView editShow(@PathVariable("showId") Integer showId) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("admin/showForm");
 
+//        pull up the show for edit
         Show show = showDao.findById(showId);
 
+//        Utilize form bean to edit
         ShowFormBean form = new ShowFormBean();
 
         form.setId(show.getId());
@@ -137,26 +144,24 @@ public class ShowsController {
         form.setLocation(show.getLocation());
         form.setTime(show.getTime());
 
+//        pull up all the objects the JSP page needs
         List<Song> songs = new ArrayList<>();
         songs = songDao.findAll();
-
         List<User> users = new ArrayList<>();
         users = userDao.findAll();
-
         List<Song> showSongs = new ArrayList<Song>();
         showSongs = show.getSSongs();
-
         List<User> showUsers = new ArrayList<User>();
         showUsers = show.getSUsers();
 
+//      Bring up the current user to add to a show
         User currentUser;
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         currentUser = userDao.findByUsername(currentPrincipalName);
 
 
-        // in this case we are adding the SongFormBean to the model
+//      Literally adding everything to the JSP page
         response.addObject("form", form);
         response.addObject("songs", songs);
         response.addObject("users", users);
@@ -166,40 +171,43 @@ public class ShowsController {
 
         return response;
     }
+
     @Transactional
     @RequestMapping(value = "/admin/removeShow/{showId}", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView deleteShow(@PathVariable("showId") Integer showId) throws Exception {
         ModelAndView response = new ModelAndView();
 
-
+//      Pull up the show to delete
         showDao.deleteById(showId);
 
+//        redirect back to show page
         response.setViewName("redirect:/shows");
 
         return response;
 
     }
+
     @RequestMapping(value = "/admin/addSong/{showId}/{songId}", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView addSongtoShow(@PathVariable("showId") Integer showId, @PathVariable("songId") Integer songId) throws Exception {
         ModelAndView response = new ModelAndView();
 
+//        Pull up the show to add a song to
         Show show = showDao.findById(showId);
 
-
+//        Pull up the song to add to the show
         Song song = songDao.findById(songId);
 
-//        List<Song> showSongs = show.getSSongs();
-//        showSongs.add(song);
-//        show.setSSongs(showSongs);
-
+//        adding it
         List<Show> songShows = song.getSShows();
         songShows.add(show);
         song.setSShows(songShows);
 
-        log.info(song.toString() + " " + show.toString() + " " + show.getSSongs());
+//        Logs song and show to console
+        log.info(song + " " + show.toString() + " " + show.getSSongs());
 
         songDao.save(song);
 
+//        Redirect to edit show page
         response.setViewName("redirect:/admin/editShow/" + show.getId());
         return response;
     }
@@ -208,23 +216,23 @@ public class ShowsController {
     public ModelAndView removeSongFromShow(@PathVariable("showId") Integer showId, @PathVariable("songId") Integer songId) throws Exception {
         ModelAndView response = new ModelAndView();
 
+//        Pull up the show to remove the song from
         Show show = showDao.findById(showId);
 
-
+//        Pull up the song to remove
         Song song = songDao.findById(songId);
 
-//        List<Song> showSongs = show.getSSongs();
-//        showSongs.add(song);
-//        show.setSSongs(showSongs);
-
+//        Remove it
         List<Show> songShows = song.getSShows();
         songShows.remove(show);
         song.setSShows(songShows);
 
-        log.info(song.toString() + " " + show.toString() + " " + show.getSSongs());
+//        Log it out
+        log.info(song + " " + show.toString() + " " + show.getSSongs());
 
         songDao.save(song);
 
+//        Redirect back to the edit show page
         response.setViewName("redirect:/admin/editShow/" + show.getId());
         return response;
     }
@@ -233,24 +241,26 @@ public class ShowsController {
     public ModelAndView addUsertoShow(@PathVariable("showId") Integer showId, @PathVariable("userId") Integer userId) throws Exception {
         ModelAndView response = new ModelAndView();
 
+//        Pull up the show to add a User to
         Show show = showDao.findById(showId);
 
+//        Pull up the current user that is logged in
         User currentUser;
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         currentUser = userDao.findByUsername(currentPrincipalName);
 
+//        Add the show to the Users shows if the User isnt already attending the show
         List<Show> userShows = currentUser.getUShows();
-
-        if(!show.getSUsers().contains(currentUser)) {
+        if (!show.getSUsers().contains(currentUser)) {
             userShows.add(show);
             currentUser.setUShows(userShows);
         }
-        log.info(currentUser.toString() + " " + show.toString() + " " + show.getSSongs());
+        log.info(currentUser + " " + show + " " + show.getSSongs());
 
         userDao.save(currentUser);
 
+//        Redirect back to edit show page
         response.setViewName("redirect:/admin/editShow/" + show.getId());
         return response;
     }
@@ -259,23 +269,23 @@ public class ShowsController {
     public ModelAndView removeUserFromShow(@PathVariable("showId") Integer showId, @PathVariable("userId") Integer userId) throws Exception {
         ModelAndView response = new ModelAndView();
 
+//        Pull up the show to remove the User from
         Show show = showDao.findById(showId);
 
-
+//        Pull up the User to remove from the show
         User user = userDao.findById(userId);
 
-//        List<Song> showSongs = show.getSSongs();
-//        showSongs.add(song);
-//        show.setSSongs(showSongs);
-
+//      Remove the User from the show
         List<Show> userShows = user.getUShows();
         userShows.remove(show);
         user.setUShows(userShows);
 
-        log.info(user.toString() + " " + show.toString() + " " + show.getSSongs());
+//        Log out the removed User
+        log.info(user + " " + show.toString() + " " + show.getSSongs());
 
         userDao.save(user);
 
+//      Redirect back to Edit show page
         response.setViewName("redirect:/admin/editShow/" + show.getId());
         return response;
     }

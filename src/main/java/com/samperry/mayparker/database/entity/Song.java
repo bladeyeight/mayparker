@@ -1,4 +1,5 @@
 package com.samperry.mayparker.database.entity;
+
 import lombok.*;
 
 import javax.persistence.*;

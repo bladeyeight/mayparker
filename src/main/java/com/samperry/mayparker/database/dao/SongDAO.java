@@ -9,11 +9,11 @@ import java.util.List;
 
 @Repository
 public interface SongDAO extends JpaRepository<Song, Long> {
-    public List<Song> findAll();
+    List<Song> findAll();
 
-    public Song findById(@Param("id") Integer id);
+    Song findById(@Param("id") Integer id);
 
-    public Song findByName(@Param("name") String name);
+    Song findByName(@Param("name") String name);
 
-    public void deleteById(@Param("id") Integer id);
+    void deleteById(@Param("id") Integer id);
 }

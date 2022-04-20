@@ -3,9 +3,8 @@ package com.samperry.mayparker.formbean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter

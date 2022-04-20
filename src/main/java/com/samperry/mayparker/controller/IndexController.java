@@ -12,10 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
+    //    Bring up the index page
     @Autowired
     private UserDAO userDao;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET )
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView Index() throws Exception {
         ModelAndView response = new ModelAndView();
 

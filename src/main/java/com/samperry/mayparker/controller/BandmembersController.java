@@ -15,7 +15,8 @@ public class BandmembersController {
     @Autowired
     private UserDAO userDao;
 
-    @RequestMapping(value = "/bandmembers", method = RequestMethod.GET )
+    //    Bring up the bandmembers page
+    @RequestMapping(value = "/bandmembers", method = RequestMethod.GET)
     public ModelAndView BandMembers() throws Exception {
         ModelAndView response = new ModelAndView();
 

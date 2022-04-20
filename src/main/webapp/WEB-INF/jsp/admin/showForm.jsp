@@ -9,95 +9,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../pub/css/songForm.css">
     <title>Document</title>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <c:if test="${empty form.id}">
-    <h1 class = "topflag">Create Show</h1>
+    <h1 class="topflag">Create Show</h1>
 </c:if>
 <c:if test="${not empty form.id}">
-    <h1 class = "topflag">Edit Show</h1>
+    <h1 class="topflag">Edit Show</h1>
 </c:if>
-<form id = "showform" action = "/admin/showForm/registerShow" method ="get">
-    <input type = "hidden" name = "id" value = "${form.id}">
+<form id="showform" action="/admin/showForm/registerShow" method="get">
+    <input type="hidden" name="id" value="${form.id}">
     <div class="mb-3">
         <label for="InputDate" class="form-label">Show Date:</label>
-        <input type="date" class="form-control" id="InputDate" name = "date" value = "${form.date}">
+        <input type="date" class="form-control" id="InputDate" name="date" value="${form.date}">
     </div>
     <div class="mb-3">
         <label for="InputLocation" class="form-label">Show Location:</label>
-        <input type="text" class="form-control" id="InputLocation" name = "location" value = "${form.location}">
+        <input type="text" class="form-control" id="InputLocation" name="location" value="${form.location}">
     </div>
     <div class="mb-3">
         <label for="InputTime" class="form-label">Show Time:</label>
-        <input type="text" class="form-control" id="InputTime" name = "time" value = "${form.time}">
+        <input type="text" class="form-control" id="InputTime" name="time" value="${form.time}">
     </div>
     <sec:authorize access="hasAuthority('ADMIN')">
-    <button type="submit" class="btn btn-light">Submit</button>
-    <c:if test="${not empty form.id}">
-    <a href="/admin/removeShow/${form.id}" class="btn btn-danger" tabindex="-1" role="button">Delete Show</a>
-    </c:if>
+        <button type="submit" class="btn btn-light">Submit</button>
+        <c:if test="${not empty form.id}">
+            <a href="/admin/removeShow/${form.id}" class="btn btn-danger" tabindex="-1" role="button">Delete Show</a>
+        </c:if>
     </sec:authorize>
     <a href="/shows" class="btn btn-light" tabindex="-1" role="button">Back</a>
 </form>
 <c:if test="${not empty form.id}">
-    <h3 id = "sethead">Set List</h3>
-<table class = "table">
-    <tr>
-        <th>Name</th>
-        <sec:authorize access="hasAuthority('ADMIN')">
-        <th></th>
-        </sec:authorize>
-
-    </tr>
-    <c:forEach items="${showSongs}" var ="showSong">
-
-        <tr scope ="row">
-            <td>${showSong.name}</td>
+    <h3 id="sethead">Set List</h3>
+    <table class="table">
+        <tr>
+            <th>Name</th>
             <sec:authorize access="hasAuthority('ADMIN')">
-            <td><a class = "removesong" href = "/admin/removeSong/${form.id}/${showSong.id}">Remove Song</a></td>
+                <th></th>
             </sec:authorize>
+
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${showSongs}" var="showSong">
+
+            <tr scope="row">
+                <td>${showSong.name}</td>
+                <sec:authorize access="hasAuthority('ADMIN')">
+                    <td><a class="removesong" href="/admin/removeSong/${form.id}/${showSong.id}">Remove Song</a></td>
+                </sec:authorize>
+            </tr>
+        </c:forEach>
+    </table>
 
     <div class="dropdown">
         <sec:authorize access="hasAuthority('ADMIN')">
-        <a class="btn btn-sm btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Add Song
-        </a>
+            <a class="btn btn-sm btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                Add Song
+            </a>
         </sec:authorize>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <c:forEach items="${songs}" var ="song">
-            <li><a class="dropdown-item" href="/admin/addSong/${form.id}/${song.id}">"${song.name}"</a></li>
+            <c:forEach items="${songs}" var="song">
+                <li><a class="dropdown-item" href="/admin/addSong/${form.id}/${song.id}">"${song.name}"</a></li>
             </c:forEach>
         </ul>
     </div>
 </c:if>
-<h3 id = "sethead">Attending</h3>
-<table class = "table">
+<h3 id="sethead">Attending</h3>
+<table class="table">
     <tr>
         <th>Name</th>
-<%--        <sec:authorize access="hasAuthority('ADMIN')">--%>
-            <th></th>
-<%--        </sec:authorize>--%>
+        <%--        <sec:authorize access="hasAuthority('ADMIN')">--%>
+        <th></th>
+        <%--        </sec:authorize>--%>
     </tr>
-    <c:forEach items="${showUsers}" var ="showUser">
-        <tr scope ="row">
+    <c:forEach items="${showUsers}" var="showUser">
+        <tr scope="row">
             <td>${showUser.username}</td>
-            <c:if test = "${currentUser.username == showUser.username}">
-                <td><a class = "removeuser" href = "/admin/removeUser/${form.id}/${showUser.id}">Remove</a></td>
+            <c:if test="${currentUser.username == showUser.username}">
+                <td><a class="removeuser" href="/admin/removeUser/${form.id}/${showUser.id}">Remove</a></td>
             </c:if>
         </tr>
     </c:forEach>
 </table>
 
 <div class="dropdown">
-    <a href="/admin/addUser/${form.id}/${currentUser.id}" class="btn btn-info btn-sm" tabindex="-1" role="button">Attend Show</a>
+    <a href="/admin/addUser/${form.id}/${currentUser.id}" class="btn btn-info btn-sm" tabindex="-1" role="button">Attend
+        Show</a>
 </div>
 </body>
 <style>
@@ -114,7 +118,7 @@
         margin-bottom: 70px;
     }
 
-    #showform{
+    #showform {
         color: white;
     }
 
@@ -132,7 +136,7 @@
         border: none;
     }
 
-    #sethead{
+    #sethead {
         display: flex;
         right: 30px;
         justify-content: center;

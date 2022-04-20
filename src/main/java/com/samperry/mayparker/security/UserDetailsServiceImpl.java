@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -55,6 +54,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), accountIsEnabled, accountNonExpired, credentialsNonExpired, accountNonLocked, springRoles);
     }
+
     private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<UserRole> userRoles) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for (UserRole role : userRoles) {

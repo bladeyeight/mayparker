@@ -2,19 +2,20 @@ body {
     background-color: black;
 }
 
-#wild{
+#wild {
     display: block;
     position: absolute;
-    height:250px;
+    height: 250px;
     width: 340px;
     right: 1px;
 }
 
-#topflag{
+#topflag {
     display: flex;
     align-items: center;
 }
-#meetstyle{
+
+#meetstyle {
     position: relative;
     display: inline-block;
     color: black;
@@ -24,27 +25,27 @@ body {
     margin-right: auto;
 }
 
-#underline{
+#underline {
     text-decoration: underline;
     text-decoration-color: lightskyblue;
 }
 
-#sully{
+#sully {
     margin-top: 400px;
     font-size: 30px;
     color: white;
 }
 
-#sullypic{
+#sullypic {
     height: 200px;
-  width:235px;
+    width: 235px;
     border: solid 2px;
     border-style: dashed;
     border-color: lightskyblue;
     border-radius: 60%;
 }
 
-#brett{
+#brett {
     text-align: right;
     float: right;
     margin-top: 70px;
@@ -52,7 +53,7 @@ body {
     color: white;
 }
 
-#brettpic{
+#brettpic {
     float: right;
     height: 200px;
     border: solid 2px;
@@ -61,11 +62,12 @@ body {
     border-radius: 60%;
 }
 
-#bretttext{
+#bretttext {
     display: relative;
     margin-top: 160px;
 }
-#michael{
+
+#michael {
     text-align: left;
     float: left;
     margin-top: 70px;
@@ -73,7 +75,7 @@ body {
     color: white;
 }
 
-#michaelpic{
+#michaelpic {
     float: left;
     height: 200px;
     width: 200px;
@@ -83,12 +85,12 @@ body {
     border-radius: 60%;
 }
 
-#michaeltext{
+#michaeltext {
     display: relative;
     margin-top: 160px;
 }
 
-#sam{
+#sam {
     text-align: right;
     float: right;
     margin-top: 70px;
@@ -96,7 +98,7 @@ body {
     color: white;
 }
 
-#sampic{
+#sampic {
     float: right;
     height: 200px;
     border: solid 2px;
@@ -105,12 +107,12 @@ body {
     border-radius: 60%;
 }
 
-#samtext{
+#samtext {
     display: relative;
     margin-top: 160px;
 }
 
-#tyler{
+#tyler {
     text-align: left;
     float: left;
     margin-top: 70px;
@@ -118,7 +120,7 @@ body {
     color: white;
 }
 
-#tylerpic{
+#tylerpic {
     float: left;
     height: 200px;
     width: 200px;
@@ -128,7 +130,7 @@ body {
     border-radius: 60%;
 }
 
-#tylertext{
+#tylertext {
     display: relative;
     margin-top: 160px;
 }

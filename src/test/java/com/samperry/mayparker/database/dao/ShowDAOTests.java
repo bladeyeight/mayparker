@@ -2,7 +2,6 @@ package com.samperry.mayparker.database.dao;
 
 import com.samperry.mayparker.database.entity.Show;
 import com.samperry.mayparker.database.entity.Song;
-import com.samperry.mayparker.database.entity.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;

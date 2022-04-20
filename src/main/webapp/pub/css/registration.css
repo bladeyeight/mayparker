@@ -4,14 +4,14 @@
     rgba(255, 255, 255, 0.67))
 }
 
-.card-body{
+.card-body {
     border-radius: 15px;
     background-color: black;
     font-size: 35px;
     color: white;
 }
 
-h3{
+h3 {
     font-size: 50px;
 }
 

@@ -15,7 +15,8 @@ public class LoginController {
     @Autowired
     private UserDAO userDao;
 
-    @RequestMapping(value = "/login/login", method = RequestMethod.GET )
+    //    Bring up the Login page
+    @RequestMapping(value = "/login/login", method = RequestMethod.GET)
     public ModelAndView Login() throws Exception {
         ModelAndView response = new ModelAndView();
 

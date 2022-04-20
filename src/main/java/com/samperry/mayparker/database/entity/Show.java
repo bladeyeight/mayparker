@@ -23,7 +23,7 @@ public class Show {
     @Column(name = "id")
     private Integer id;
 
-//    @Temporal (TemporalType.DATE)
+    //    @Temporal (TemporalType.DATE)
     @Column(name = "date")
     private Date date;
 
@@ -35,11 +35,11 @@ public class Show {
     private String time;
 
     @ToString.Exclude
-    @ManyToMany (mappedBy = "uShows", fetch =FetchType.LAZY)
+    @ManyToMany(mappedBy = "uShows", fetch = FetchType.LAZY)
     private List<User> sUsers = new ArrayList<>();
 
     @ToString.Exclude
-    @ManyToMany (mappedBy = "sShows", fetch =FetchType.LAZY)
+    @ManyToMany(mappedBy = "sShows", fetch = FetchType.LAZY)
     private List<Song> sSongs = new ArrayList<>();
 
 

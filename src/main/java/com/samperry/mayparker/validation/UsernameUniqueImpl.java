@@ -24,8 +24,8 @@ public class UsernameUniqueImpl implements ConstraintValidator<UsernameUnique, S
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context){
-        if (StringUtils.isEmpty(value)){
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (StringUtils.isEmpty(value)) {
             return true;
         }
         User user = userDao.findByUsername(value);

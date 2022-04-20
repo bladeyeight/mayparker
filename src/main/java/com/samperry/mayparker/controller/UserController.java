@@ -2,9 +2,9 @@ package com.samperry.mayparker.controller;
 
 import com.samperry.mayparker.database.dao.UserDAO;
 import com.samperry.mayparker.database.dao.UserRoleDAO;
+import com.samperry.mayparker.database.entity.User;
 import com.samperry.mayparker.database.entity.UserRole;
 import com.samperry.mayparker.formbean.RegisterFormBean;
-import com.samperry.mayparker.database.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +31,7 @@ public class UserController {
     @Autowired
     private UserRoleDAO userRoleDao;
 
-
+//      Pull up the register page
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public ModelAndView create() throws Exception {
 
@@ -48,9 +48,7 @@ public class UserController {
     public ModelAndView registerSubmit(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
-        log.info(form.toString());
-
-
+//        dealing with binding result to display errors on JSP page
         if (bindingResult.hasErrors()) {
 
             for (ObjectError error : bindingResult.getAllErrors()) {
@@ -79,23 +77,22 @@ public class UserController {
             // find this user.   Therefore, it is a create.
             user = new User();
         }
-
+//        Set User Attributes
         user.setUsername(form.getUsername());
-
         String password = passwordEncoder.encode(form.getPassword());
         user.setPassword(password);
 
         userDao.save(user);
 
+//        Add UserRole to the User and defaults at USER
         UserRole userRole = new UserRole();
         userRole.setUserId(user.getId());
         userRole.setUserRole("USER");
 
         userRoleDao.save(userRole);
 
-
+//      Log out the new form
         log.info(form.toString());
-
 
 
         // here instaed of showing a view, we want to redirect to the edit page

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.nio.file.AccessDeniedException;
 
 
-
+//Bring up the 404 page
 @Slf4j
 @Controller
 @ControllerAdvice
@@ -27,6 +27,7 @@ public class ErrorController {
         return "error/404";
     }
 
+    //    Bring up the 500 page
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAllExceptions(HttpServletRequest request, Exception ex) {
 
@@ -37,11 +38,11 @@ public class ErrorController {
 
         String stackTrace = getHTMLStackTrace(ExceptionUtils.getStackFrames(ex));
 
-        model.addObject("requestUrl",  getRequestURL(request));
+        model.addObject("requestUrl", getRequestURL(request));
         model.addObject("message", ex.getMessage());
         model.addObject("stackTrace", stackTrace);
 
-        if ( ex.getCause() != null ) {
+        if (ex.getCause() != null) {
             Throwable root = ExceptionUtils.getRootCause(ex);
             model.addObject("rootcause", root);
 
@@ -58,14 +59,13 @@ public class ErrorController {
         for (String frame : stack) {
             if (frame.contains("samperry")) {
                 result.append(" &nbsp; &nbsp; &nbsp;" + frame.trim().substring(3) + "<br>\n");
-            } else if ( frame.contains("Caused by:")) {
+            } else if (frame.contains("Caused by:")) {
                 result.append("Caused By: " + frame + "<br>");
             }
         }
 
         return result.toString();
     }
-
 
 
     private String getRequestURL(HttpServletRequest request) {

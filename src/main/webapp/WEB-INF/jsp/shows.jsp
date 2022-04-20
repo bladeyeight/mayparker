@@ -13,10 +13,11 @@
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<div id = "topflag">
-    <h1 id ="meetstyle"><span id = "specwords">Upcoming</span> Shows</h1>
-</div >
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<div id="topflag">
+    <h1 id="meetstyle"><span id="specwords">Upcoming</span> Shows</h1>
+</div>
 <div class="btn-group dropdown">
     <button type="button" class="btn btn-info btn-md dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         Menu
@@ -26,7 +27,9 @@
         <li><a class="dropdown-item" href="../index">Home</a></li>
         <li><a class="dropdown-item" href="../bandmembers">BandMembers</a></li>
         <li><a class="dropdown-item" href="../songs">Songs</a></li>
-        <li><hr class="dropdown-divider"></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
         <li><a class="dropdown-item" href="../user/register">Create Account</a></li>
         <sec:authorize access="!isAuthenticated()">
             <li><a class="dropdown-item" href="../login/login">Login</a></li>
@@ -37,20 +40,20 @@
     </ul>
 </div>
 <sec:authorize access="hasAuthority('ADMIN')">
-<a id ="createshow" class = "btn btn-info btn-md" href = "admin/showForm">Create Show</a>
+    <a id="createshow" class="btn btn-info btn-md" href="admin/showForm">Create Show</a>
 </sec:authorize>
-<table class = "table">
+<table class="table">
     <tr>
         <th>Location</th>
         <th>Date</th>
         <th></th>
     </tr>
-    <c:forEach items="${shows}" var ="show">
+    <c:forEach items="${shows}" var="show">
 
-        <tr scope ="row">
+        <tr scope="row">
             <td>${show.location}</td>
             <td>${show.date}</td>
-            <td><a href = "/admin/editShow/${show.id}">More Info</a></td>
+            <td><a href="/admin/editShow/${show.id}">More Info</a></td>
         </tr>
     </c:forEach>
 </table>

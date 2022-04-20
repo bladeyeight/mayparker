@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    $('#registerForm').on("submit", function(event){
+$(document).ready(function () {
+    $('#registerForm').on("submit", function (event) {
         // event.preventDefault();
         if (
             $('#email').val() == '' ||
@@ -13,7 +13,7 @@ $(document).ready(function() {
         }
     })
 });
-var check = function() {
+var check = function () {
     if (document.getElementById('password').value ==
         document.getElementById('confirmPassword').value) {
         document.getElementById('message').style.color = 'green';
@@ -24,20 +24,19 @@ var check = function() {
     }
 }
 
-var submitForm = async function ()
-{
+var submitForm = async function () {
     await createUser();
     await loginUser();
 }
 
-function createUser () {
-    document.forms['registerForm'].action='/user/registerSubmit';
+function createUser() {
+    document.forms['registerForm'].action = '/user/registerSubmit';
     document.forms['registerForm'].method = 'GET';
     document.forms['registerForm'].submit();
 }
 
-function loginUser () {
-    document.forms['registerForm'].action='/login/loginSubmit';
+function loginUser() {
+    document.forms['registerForm'].action = '/login/loginSubmit';
     document.forms['registerForm'].method = 'POST';
     document.forms['registerForm'].submit();
 }

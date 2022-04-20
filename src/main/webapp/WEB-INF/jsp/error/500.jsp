@@ -24,5 +24,4 @@
 </c:if>
 
 
-
 <%--<jsp:include page="../includes/footer.jsp" />--%>
