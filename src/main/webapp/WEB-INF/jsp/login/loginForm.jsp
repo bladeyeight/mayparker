@@ -41,14 +41,6 @@
                                         <label class="form-label" for="password">Password</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-2 pb-2">
-                                    <div class="form-outline">
-                                        <input type="text" name="confirmPassword" id="confirmPassword"
-                                               class="form-control form-control-lg"
-                                               onkeyup='check();'/>
-                                        <label class="form-label" for="confirmPassword">Confirm Password</label>
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3 mt-4 pt-2">

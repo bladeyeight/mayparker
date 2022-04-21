@@ -18,12 +18,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+
+<%--Header Create or Edit depending on if you create or edit--%>
 <c:if test="${empty form.id}">
     <h1 class="topflag">Create Show</h1>
 </c:if>
 <c:if test="${not empty form.id}">
     <h1 class="topflag">Edit Show</h1>
 </c:if>
+
+<%--Form for editing the show--%>
 <form id="showform" action="/admin/showForm/registerShow" method="get">
     <input type="hidden" name="id" value="${form.id}">
     <div class="mb-3">
@@ -38,14 +42,20 @@
         <label for="InputTime" class="form-label">Show Time:</label>
         <input type="text" class="form-control" id="InputTime" name="time" value="${form.time}">
     </div>
+
+    <%--    Only ADMIN can actually edit the show--%>
     <sec:authorize access="hasAuthority('ADMIN')">
         <button type="submit" class="btn btn-light">Submit</button>
         <c:if test="${not empty form.id}">
             <a href="/admin/removeShow/${form.id}" class="btn btn-danger" tabindex="-1" role="button">Delete Show</a>
         </c:if>
     </sec:authorize>
+
+    <%--    Everyone has back button--%>
     <a href="/shows" class="btn btn-light" tabindex="-1" role="button">Back</a>
 </form>
+
+<%--Table for Songs on a show--%>
 <c:if test="${not empty form.id}">
     <h3 id="sethead">Set List</h3>
     <table class="table">
@@ -66,7 +76,7 @@
             </tr>
         </c:forEach>
     </table>
-
+    <%--Only Admin can add a song--%>
     <div class="dropdown">
         <sec:authorize access="hasAuthority('ADMIN')">
             <a class="btn btn-sm btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -81,13 +91,12 @@
         </ul>
     </div>
 </c:if>
+<%--Users table in show--%>
 <h3 id="sethead">Attending</h3>
 <table class="table">
     <tr>
         <th>Name</th>
-        <%--        <sec:authorize access="hasAuthority('ADMIN')">--%>
         <th></th>
-        <%--        </sec:authorize>--%>
     </tr>
     <c:forEach items="${showUsers}" var="showUser">
         <tr scope="row">
@@ -98,7 +107,7 @@
         </tr>
     </c:forEach>
 </table>
-
+<%--Add User to Show button--%>
 <div class="dropdown">
     <a href="/admin/addUser/${form.id}/${currentUser.id}" class="btn btn-info btn-sm" tabindex="-1" role="button">Attend
         Show</a>
