@@ -49,7 +49,7 @@ public class ShowsController {
 
         List<Show> shows = new ArrayList();
 
-        shows = showDao.findAll();
+        shows = showDao.getUpcomingShows();
 
 //        lambda
         shows.sort((o1, o2)
@@ -287,6 +287,64 @@ public class ShowsController {
 
 //      Redirect back to Edit show page
         response.setViewName("redirect:/admin/editShow/" + show.getId());
+        return response;
+    }
+
+    //Bring up the show history page
+    @RequestMapping(value = "/showHistory", method = RequestMethod.GET)
+    public ModelAndView showHistory() throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("showHistory");
+
+        List<Show> shows = new ArrayList();
+
+        shows = showDao.getPreviousShows();
+
+//        lambda
+        shows.sort((o1, o2)
+                -> o1.getDate().compareTo(
+                o2.getDate()));
+
+        response.addObject("shows", shows);
+
+
+        return response;
+    }
+
+    // Controller for edit form on show History page
+    @GetMapping("/admin/editShowHistory/{showId}")
+    public ModelAndView editShowHistory(@PathVariable("showId") Integer showId) throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("admin/showHistoryForm");
+
+//        pull up the show for edit
+        Show show = showDao.findById(showId);
+
+//        Utilize form bean to edit
+        ShowFormBean form = new ShowFormBean();
+
+        form.setId(show.getId());
+        form.setDate(show.getDate());
+        form.setLocation(show.getLocation());
+        form.setTime(show.getTime());
+
+//        pull up all the objects the JSP page needs
+        List<Song> songs = new ArrayList<>();
+        songs = songDao.findAll();
+        List<User> users = new ArrayList<>();
+        users = userDao.findAll();
+        List<Song> showSongs = new ArrayList<Song>();
+        showSongs = show.getSSongs();
+        List<User> showUsers = new ArrayList<User>();
+        showUsers = show.getSUsers();
+
+//      Literally adding everything to the JSP page
+        response.addObject("form", form);
+        response.addObject("songs", songs);
+        response.addObject("users", users);
+        response.addObject("showSongs", showSongs);
+        response.addObject("showUsers", showUsers);
+
         return response;
     }
 }

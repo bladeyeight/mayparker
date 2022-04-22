@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,17 +41,8 @@
         <label for="InputTime" class="form-label">Show Time:</label>
         <input type="text" class="form-control" id="InputTime" name="time" value="${form.time}">
     </div>
-
-    <%--    Only ADMIN can actually edit the show--%>
-    <sec:authorize access="hasAuthority('ADMIN')">
-        <button type="submit" class="btn btn-light">Submit</button>
-        <c:if test="${not empty form.id}">
-            <a href="/admin/removeShow/${form.id}" class="btn btn-danger" tabindex="-1" role="button">Delete Show</a>
-        </c:if>
-    </sec:authorize>
-
     <%--    Everyone has back button--%>
-    <a href="/shows" class="btn btn-light" tabindex="-1" role="button">Back</a>
+    <a href="/showHistory" class="btn btn-light" tabindex="-1" role="button">Back</a>
 </form>
 
 <%--Table for Songs on a show--%>
@@ -61,35 +51,15 @@
     <table class="table">
         <tr>
             <th>Name</th>
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <th></th>
-            </sec:authorize>
 
         </tr>
         <c:forEach items="${showSongs}" var="showSong">
 
             <tr scope="row">
                 <td>${showSong.name}</td>
-                <sec:authorize access="hasAuthority('ADMIN')">
-                    <td><a class="removesong" href="/admin/removeSong/${form.id}/${showSong.id}">Remove Song</a></td>
-                </sec:authorize>
             </tr>
         </c:forEach>
     </table>
-    <%--Only Admin can add a song--%>
-    <div class="dropdown">
-        <sec:authorize access="hasAuthority('ADMIN')">
-            <a class="btn btn-sm btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-               data-bs-toggle="dropdown" aria-expanded="false">
-                Add Song
-            </a>
-        </sec:authorize>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <c:forEach items="${songs}" var="song">
-                <li><a class="dropdown-item" href="/admin/addSong/${form.id}/${song.id}">"${song.name}"</a></li>
-            </c:forEach>
-        </ul>
-    </div>
 </c:if>
 <%--Users table in show--%>
 <c:if test="${not empty form.id}">
@@ -97,22 +67,13 @@
     <table class="table">
         <tr>
             <th>Name</th>
-            <th></th>
         </tr>
         <c:forEach items="${showUsers}" var="showUser">
             <tr scope="row">
                 <td>${showUser.username}</td>
-                <c:if test="${currentUser.username == showUser.username}">
-                    <td><a class="removeuser" href="/admin/removeUser/${form.id}/${showUser.id}">Remove</a></td>
-                </c:if>
             </tr>
         </c:forEach>
     </table>
-    <%--Add User to Show button--%>
-    <div class="dropdown">
-        <a href="/admin/addUser/${form.id}/${currentUser.id}" class="btn btn-info btn-sm" tabindex="-1" role="button">Attend
-            Show</a>
-    </div>
 </c:if>
 </body>
 <style>
